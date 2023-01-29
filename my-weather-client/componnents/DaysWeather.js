@@ -1,32 +1,74 @@
-import React from 'react'
+import React,{useEffect,useState} from 'react'
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 
-const DaysWeather = () => {
+const DaysWeather = ({data}) => {
+  const [Temps, setTemps] = useState()
+  const [activeCard, setActiveCard] = useState('day')
+  useEffect(()=>{
+    if (data.list) {
+      setTemps(data.list[0].feels_like)
+    }
+  },[data,activeCard])  
   return (
-    <View style={styles.Card}>
-        <Text style={styles.text}>23°</Text>
-        <Text style={styles.text}>image</Text>
-        <Text style={styles.text}>23°</Text>
+    <>
+    {
+    Temps?
+    <View style={styles.constainer}>
+      <View style={[styles.Card,activeCard==='morn'? styles.active:null]} onClick={()=>setActiveCard('morn')}>
+            <Text style={styles.text}> {Temps.morn}°</Text>
+            <Text style={styles.text}>image</Text>
+            <Text style={styles.text}>Morn</Text>
+      </View>
+      <View style={[styles.Card,activeCard==='eve'? styles.active:null]} onClick={()=>setActiveCard('eve')}>
+            <Text style={styles.text}> {Temps.eve}°</Text>
+            <Text style={styles.text}>image</Text>
+            <Text style={styles.text}>Eve</Text>
+      </View>
+      <View style={[styles.Card,activeCard==='day'? styles.active:null]} onClick={()=>setActiveCard('day')}>
+            <Text style={styles.text}> {Temps.day}°</Text>
+            <Text style={styles.text}>image</Text>
+            <Text style={styles.text}>Day</Text>
+      </View>
+      <View style={[styles.Card,activeCard==='night'? styles.active:null]} onClick={()=>setActiveCard('night')}>
+            <Text style={styles.text}> {Temps.night}°</Text>
+            <Text style={styles.text}>image</Text>
+            <Text style={styles.text}>Night</Text>
+      </View>
     </View>
+      :null
+    }
+    </>
   )
 }
 const styles = StyleSheet.create({
-    Card:{
-        display:'flex',
-        flexDirection:'column',
-        alignItems:'center',
-        justifyContent:'space-around',
-        backgroundImage: `linear-gradient(to bottom, rgba(0, 204, 255, 1), rgba(0, 113, 255, 1))`,
-        width:'80px',
-        height:'110px',
-        border:"1px solid grey",
-        borderRadius:"30px",
-    },
-    text:{
-        color:'white',
-        fontWeight:'600',
-        fontSize:'18px'
+  constainer:{
+    display:'flex',
+    flexDirection:'row',
+    alignItems:'center',
+    justifyContent:'space-around',
+    paddingBottom:'12px'
+  },
+  Card:{
+      display:'flex',
+      flexDirection:'column',
+      alignItems:'center',
+      justifyContent:'space-around',
+      // backgroundImage: `linear-gradient(to bottom, rgba(0, 204, 255, 1), rgba(0, 113, 255, 1))`,
+      width:'80px',
+      height:'110px',
+      border:"1px solid grey",
+      borderRadius:"30px",
+      marginLeft:'5px',
+      marginRight:'5px'
+  },
+  text:{
+      color:'white',
+      fontWeight:'600',
+      fontSize:'18px'
+  },
+  active:{
+      backgroundImage: `linear-gradient(to bottom, rgba(0, 204, 255, 1), rgba(0, 113, 255, 1))`,
     }
 })
 export default DaysWeather

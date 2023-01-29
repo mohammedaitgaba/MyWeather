@@ -33,7 +33,7 @@ export default function Home({navigation}) {
 
   }, []);
   useEffect(()=>{
-    getWeather()
+     getWeather()
   },[longitude])
   
   if (errorMsg) {
@@ -43,8 +43,6 @@ export default function Home({navigation}) {
      longitude = JSON.stringify(location.coords.longitude)
   }
   const getWeather = async()=>{
-    console.log(latitude);
-    console.log(longitude);
     await fetch(`https://api.openweathermap.org/data/2.5/forecast/daily?lat=32.2945181&lon=-9.2406895&units=metric&cnt=8&appid=${key}`)
       .then(res => res.json())
       .then(data=>setData(data))
@@ -62,9 +60,6 @@ export default function Home({navigation}) {
         </View>
         <View style={styles.days} >
             <DaysWeather data={data}/>
-        </View>
-        <View style={{width:'90%',padding:'30px'}}>
-          <Text style={styles.text}>{latitude}{longitude}</Text>
         </View>
     </View>:null
 }
