@@ -1,13 +1,15 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View,ScrollView  } from 'react-native';
-import Home from './pages/Home';
+import { StyleSheet, Text, View,ScrollView ,Dimensions } from 'react-native';
+
+import Navbar from './componnents/Navbar'
+import 'react-native-gesture-handler'
+
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Home/>
-      <StatusBar style="auto" />
-    </View>
-    
+  return ( 
+    <>
+    <Navbar/>
+    {/* <HomeStack/> */}
+    </>
   );
 }
 
