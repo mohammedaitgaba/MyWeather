@@ -18,22 +18,22 @@ const DaysWeather = ({data}) => {
       <View style={[styles.Card,activeCard==='morn'? styles.active:null]} onClick={()=>setActiveCard('morn')}>
             <Text style={styles.text}> {Temps.morn}°</Text>
             <Text style={styles.text}>image</Text>
-            <Text style={styles.text}>Morn</Text>
+            <Text style={styles.textSm}>Morn</Text>
       </View>
       <View style={[styles.Card,activeCard==='eve'? styles.active:null]} onClick={()=>setActiveCard('eve')}>
             <Text style={styles.text}> {Temps.eve}°</Text>
             <Text style={styles.text}>image</Text>
-            <Text style={styles.text}>Eve</Text>
+            <Text style={styles.textSm}>Eve</Text>
       </View>
       <View style={[styles.Card,activeCard==='day'? styles.active:null]} onClick={()=>setActiveCard('day')}>
             <Text style={styles.text}> {Temps.day}°</Text>
             <Text style={styles.text}>image</Text>
-            <Text style={styles.text}>Day</Text>
+            <Text style={styles.textSm}>Day</Text>
       </View>
       <View style={[styles.Card,activeCard==='night'? styles.active:null]} onClick={()=>setActiveCard('night')}>
             <Text style={styles.text}> {Temps.night}°</Text>
             <Text style={styles.text}>image</Text>
-            <Text style={styles.text}>Night</Text>
+            <Text style={styles.textSm}>Night</Text>
       </View>
     </View>
       :null
@@ -47,7 +47,8 @@ const styles = StyleSheet.create({
     flexDirection:'row',
     alignItems:'center',
     justifyContent:'space-around',
-    paddingBottom:'12px'
+    paddingBottom:'12px',
+    width:'100%'
   },
   Card:{
       display:'flex',
@@ -65,7 +66,12 @@ const styles = StyleSheet.create({
   text:{
       color:'white',
       fontWeight:'600',
-      fontSize:'18px'
+      fontSize:'16px'
+    },
+    textSm:{
+      color:'grey',
+      fontSize:'14px'
+
   },
   active:{
       backgroundImage: `linear-gradient(to bottom, rgba(0, 204, 255, 1), rgba(0, 113, 255, 1))`,

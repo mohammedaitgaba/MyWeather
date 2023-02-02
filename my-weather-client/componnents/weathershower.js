@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react'
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View,Image } from 'react-native';
-const Weathershower = (props) => {
+import { StyleSheet, Text, View,Image,Button } from 'react-native';
+const Weathershower = ({data}) => {
     const [loding, setloding] = useState(true)
     const [dayInMonth, setDayInMonth] = useState('')
     const [month, setMonth] = useState('')
@@ -9,24 +9,22 @@ const Weathershower = (props) => {
     const [weather,setWeather]=useState()
 
     useEffect(() => {
-        if (props.data.city) {
+        if (data.city) {
             setloding(false)
-            let Today = props.data.list[0].dt
+            let Today = data.list[0].dt
             // let weather = props.data.list[0]
             getDateFromDataApi(Today)
-            setWeather(props.data.list[0])
-            console.log(props.data.list[0].weather[0].main);
+            setWeather(data.list[0])
         }
-    }, [props.data])
+    }, [data])
     if (!loding) {
-        console.log('in Weathershower',props.data);
+        console.log('in Weathershower',data);
     }
     const getDateFromDataApi = (Today)=>{
         let d = new Date(Today*1000);
         setDayInMonth(d.getDate())
         setMonth(d.toLocaleString('en-us', { month: 'short' })) 
         setDay(d.toLocaleString('en-us', { weekday: 'long' }))
-        console.log(day, dayInMonth ,month);
     }
     // const getWeatherInfo=(weather)=>{
     //     console.log(weather);
@@ -36,12 +34,12 @@ const Weathershower = (props) => {
     <>
     {
         loding?
-        <View style={styles.container}>
-         <Text>loding...</Text>
+        <View style={styles.container.loading}>
+            <Image style={styles.img.loading} source={require('../assets/images/4f432d9234988a5f33b26e0ba06bc6fe.gif')} />
         </View>
         :
         <View style={styles.container}>
-            <Text>{props.data.city.name}</Text>
+            <Text style={styles.weatherInfo.type}>{data.city.name}</Text>
             <Image   style={styles.img} source={require('../assets/images/rany.png')} />
             <View style={styles.weatherInfo} >
                 <Text style={styles.weather}>{weather.temp.day} </Text>
@@ -81,6 +79,7 @@ const Weathershower = (props) => {
             </View>
         </View>
     }
+
     </>
   )
 }
@@ -97,7 +96,15 @@ const styles = StyleSheet.create({
         width:'100%',
         borderBottomLeftRadius:"45px",
         borderBottomRightRadius:"45px",
-        boxShadow: 'rgba(7, 63, 141, 0.45) 0px 25px 20px -10px'
+        boxShadow: 'rgba(7, 63, 141, 0.9) 0px 25px 20px -10px',
+        loading:{
+            display:'flex',
+            flexDirection:'column',
+            alignItems:'center',
+            justifyContent: 'center',
+            width:"100%",
+            height:"100vh"
+        }
     },
     weather:{
         color:'white',
@@ -149,6 +156,13 @@ const styles = StyleSheet.create({
     img:{
         width:'200px',
         height:'200px',
+        loading:{
+            width:'300px',
+            height:'300px',
+        }
+    },
+    TotalDays:{
+        color:'gray',
     }
 })
 export default Weathershower
